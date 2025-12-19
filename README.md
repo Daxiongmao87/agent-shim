@@ -36,19 +36,27 @@ This allows you to use your favorite local CLI tools with chat interfaces, IDE p
 
 ## Configuration
 
-Open `app.py` and modify the `COMMAND_TEMPLATE` variable to match your CLI tool's syntax.
+1.  **Create a `.env` file** in the project root:
+    ```bash
+    touch .env
+    ```
 
-```python
-# Example for 'qwen'
-COMMAND_TEMPLATE = 'qwen {prompt}'
+2.  **Add your command template**:
+    Open `.env` and add the `COMMAND_TEMPLATE` variable.
 
-# Example for a tool that accepts a system prompt via a flag
-# COMMAND_TEMPLATE = 'my-agent --system "{system}" --user "{prompt}"'
-```
+    ```ini
+    # Example for 'qwen'
+    COMMAND_TEMPLATE='qwen {prompt}'
 
-- `{prompt}`: Replaced with the user's last message.
-- `{system}`: Replaced with the system prompt (if provided).
-- `{system_file}`: If your tool reads system prompts from a file, use this. The app will create a temp file and inject the path here.
+    # Example for a tool that accepts a system prompt via a flag
+    # COMMAND_TEMPLATE='my-agent --system "{system}" --user "{prompt}"'
+    ```
+
+    - `{prompt}`: Replaced with the user's last message.
+    - `{system}`: Replaced with the system prompt (if provided).
+    - `{system_file}`: If your tool reads system prompts from a file, use this. The app will create a temp file and inject the path here.
+
+    *Note: If no `.env` file is present, it defaults to `qwen {prompt}`.*
 
 ## Usage
 

@@ -8,6 +8,10 @@ import logging
 from typing import List, Optional, Dict, Any
 from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel, Field
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # ==========================================
 # CONFIGURATION
@@ -18,13 +22,9 @@ HOST = "127.0.0.1"
 PORT = 8001
 
 # THE COMMAND TEMPLATE
-# Use {prompt} where the user message should go.
-# Use {system} where the system message should go (if your CLI supports passing it as text).
-# Use {system_file} if your CLI needs the system prompt in a temporary file (path will be injected).
-# Example for 'qwen': 'qwen code -y "{prompt}"'
-# Example for a tool taking stdin: 'my-tool' (and logic below would need piping, currently this setup favors arg-based CLIs)
-
-COMMAND_TEMPLATE = 'qwen {prompt}'
+# Defined in .env file as COMMAND_TEMPLATE
+# Defaults to 'qwen {prompt}' if not set
+COMMAND_TEMPLATE = os.getenv("COMMAND_TEMPLATE", "qwen {prompt}")
 
 # If true, the server will log the exact command being executed to the console.
 DEBUG_MODE = True
